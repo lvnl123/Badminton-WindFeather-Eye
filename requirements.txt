@@ -1,0 +1,37 @@
+# Deep Learning Framework
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision
+opencv-python>=4.8.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# GUI Framework
+PySide6>=6.5.0
+
+# Pose Estimation
+mmpose>=1.0.0
+mim>=0.3.0
+
+# Scientific Computing
+scipy>=1.10.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Model Utilities
+torchinfo>=1.7.0
+torcheval>=0.0.7
+
+# Positional Encodings
+positional-encodings>=6.0.0
+
+# Progress Bar
+tqdm>=4.65.0
+
+# Optional: For TensorBoard visualization
+tensorboard>=2.14.0
