@@ -479,8 +479,10 @@ python ui_pyside6/main.py
    - 在"参数"标签页调整参数
    - 选择设备（cuda/cpu）
    - 选择姿态模型（rtmpose-t/s/m/l）
+   - 选择击球类型模型（ShuttleSet 35类 / ShuttleSet 25类 / badDB 18类）
    - 设置检测阈值和轨迹长度
    - 配置场地检测参数
+   - 可选开关：保留球员骨架 / 保留羽毛球轨迹 / 保留击球类别提示（影响综合可视化叠加显示）
 
 3. **运行分析**
    - 点击"开始训练分析"按钮
@@ -1187,6 +1189,30 @@ stroke_types = [
     27: "反手旋转球", 28: "反手短发球", 29: "反手长发球",
     30: "反手防守", 31: "反手斜线球", 32: "反手直线球",
     33: "反手挑高球", 34: "反手半杀球", 35: "反手重杀"
+]
+```
+
+### 25 种击球类型列表（ShuttleSet 25类）
+```python
+stroke_types_25 = [
+  "未知球種",
+  "Top_放小球", "Top_擋小球", "Top_殺球", "Top_挑球",
+  "Top_長球", "Top_平球", "Top_切球", "Top_推球",
+  "Top_撲球", "Top_勾球", "Top_發短球", "Top_發長球",
+  "Bottom_放小球", "Bottom_擋小球", "Bottom_殺球", "Bottom_挑球",
+  "Bottom_長球", "Bottom_平球", "Bottom_切球", "Bottom_推球",
+  "Bottom_撲球", "Bottom_勾球", "Bottom_發短球", "Bottom_發長球"
+]
+```
+
+### 18 种击球类型列表（badDB 18类）
+```python
+stroke_types_18 = [
+  "Bottom-Block", "Bottom-Clear", "Bottom-Drive", "Bottom-Dropshot",
+  "Bottom-Net-Kill", "Bottom-Net-Lift", "Bottom-Net-Shot", "Bottom-Serve",
+  "Bottom-Smash", "Top-Block", "Top-Clear", "Top-Drive",
+  "Top-Dropshot", "Top-Net-Kill", "Top-Net-Lift", "Top-Net-Shot",
+  "Top-Serve", "Top-Smash"
 ]
 ```
 
@@ -2124,7 +2150,9 @@ TrackNetV3_Attention/
 │   ├── net_kpRCNN.pth               # 球网检测权重
 │   └── bst/                            # BST 模型
 │       ├── shuttleset_35classes/    # 35类模型
+│       ├── shuttleset_25classes/    # 25类模型
 │       ├── badDB_6classes/          # 6类模型
+│       ├── badDB_18classes/         # 18类模型
 │       └── tenniSet_6classes/       # 6类模型
 │
 ├── videos/                             # 示例视频
@@ -2307,12 +2335,13 @@ y = poses[frame_idx, player_idx, joint_idx, 1]
 
 | 参数 | 说明 | 默认值 | 范围 | 推荐值 | 影响 |
 |------|------|--------|------|--------|------|
-| `--dataset` | 数据集类型 | shuttleset | shuttleset/badDB/tenniSet | shuttleset | 分类类别数 |
+| `--dataset` | 数据集类型 | shuttleset_35classes | shuttleset_35classes/shuttleset_25classes/badDB_18classes/badDB_6classes/tenniSet_6classes | shuttleset_35classes | 分类类别数与标签 |
 | `--seq_len` | 序列长度 | 100 | 50-200 | 100 | 时序特征提取 |
 
 **数据集选择建议**：
-- 35 类分类：shuttleset（推荐）
-- 6 类分类：badDB 或 tenniSet
+- 35 类分类：shuttleset_35classes（推荐）
+- 25 类分类：shuttleset_25classes
+- 18 类分类：badDB_18classes
 
 ---
 
